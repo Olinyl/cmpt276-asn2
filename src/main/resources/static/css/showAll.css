@@ -78,11 +78,11 @@
 }
 
 .male-student {
-    background-color: lightblue;
+    background-color: rgba(173, 216, 230, 0.60);
 }
 
 .female-student {
-    background-color: pink;
+    background-color: rgba(255, 192, 203, 0.6);
 }
 
 .other-student {

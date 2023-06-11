@@ -20,8 +20,8 @@
             <div class="col-md-12">
                 <div class="container student-container">
                     <div th:each="user:${us}" class="student-rectangle"
-                         th:style="'width:' + ${user.weight} + 'px; height:' + ${user.height} + 'px; border-color:' + ${user.haircolour} + ' !important; border-width:' + (${user.age} * 0.19) + 'px;'"
-                         th:classappend="${user.gender == 'Male'} ? 'male-student' : (${user.gender == 'Female'} ? 'female-student' : 'other-student')">
+                        th:style="'width:' + (${user.weight} * 2.5) + 'px; height:' + ${user.height} + 'px; border-color:' + ${user.haircolour} + ' !important; border-width:' + (${user.age} * 0.19) + 'px;'"
+                        th:classappend="${user.gender == 'Male'} ? 'male-student' : (${user.gender == 'Female'} ? 'female-student' : 'other-student')">
                         <h4 th:text="${user.name}" th:style="'color:' + ${user.haircolour}"></h4>
                         <p th:text="${user.gpa}" th:style="'font-size:' + (${user.gpa} * 5) + 'px;'"></p>
                         <div class="edit-button-container">
