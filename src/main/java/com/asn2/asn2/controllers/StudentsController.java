@@ -24,11 +24,13 @@ public class StudentsController {
     @Autowired
     private StudentRepository userRepo;
 
+    // Show form to add a new user
     @GetMapping("/users/add")
     public String showAddUserForm() {
         return "users/add";
     }
 
+    // Get all users and display
     @GetMapping("/users/view")
     public String getAllUsers(Model model) {
         System.out.println("Getting all students");
@@ -43,6 +45,7 @@ public class StudentsController {
         return "users/showAll";
     }
 
+    // Add a new user
     @PostMapping("/users/add")
     public String addUserString(@RequestParam Map<String, String> newuser, HttpServletResponse response) {
         System.out.println("ADD student");
@@ -64,11 +67,9 @@ public class StudentsController {
         return "redirect:/users/view";
     }
 
+    // Show form to edit a user
     @GetMapping("/users/edit/{uid}")
     public String editUserForm(@PathVariable("uid") int uid, Model model) {
-        // int id = Integer.parseInt(uid);
-        //User u = userRepo.findById(id).get();
-        
         Optional<Student> optionalUser = userRepo.findById(uid);
         if (optionalUser.isPresent()) {
             Student user = optionalUser.get();
@@ -80,6 +81,7 @@ public class StudentsController {
         }
     }
 
+    // Update user details
     @PostMapping("/users/edit")
     public String editUser(@RequestParam Map<String, String> newuser, Model model) {
         int uid = Integer.parseInt(newuser.get("uid"));
@@ -88,12 +90,13 @@ public class StudentsController {
         int height = Integer.parseInt(newuser.get("height"));
         String hairColor = newuser.get("hair_color");
         double gpa = Double.parseDouble(newuser.get("gpa"));
-        int age = Integer.parseInt(newuser.get("age")); // Retrieve the age
-        String gender = newuser.get("gender"); // Retrieve the gender
+        int age = Integer.parseInt(newuser.get("age"));
+        String gender = newuser.get("gender");
 
         Optional<Student> optionalUser = userRepo.findById(uid);
         if (optionalUser.isPresent()) {
             Student user = optionalUser.get();
+            // Update the user details
             user.setName(name);
             user.setWeight(weight);
             user.setHeight(height);
@@ -101,6 +104,7 @@ public class StudentsController {
             user.setGpa(gpa);
             user.setAge(age);
             user.setGender(gender);
+            // Save Updated user details to repository
             userRepo.save(user);
 
             // Get all users from the database
@@ -114,12 +118,13 @@ public class StudentsController {
         return "redirect:/users/view";
     }
 
+    // Delete a user
     @PostMapping("/users/delete/{uid}")
     public String deleteUser(@PathVariable("uid") int uid) {
         Optional<Student> optionalUser = userRepo.findById(uid);
         if (optionalUser.isPresent()) {
             Student user = optionalUser.get();
-            userRepo.delete(user);
+            userRepo.delete(user); // Delete the user from repository
         } else {
             // Handle when the user is not found
         }
